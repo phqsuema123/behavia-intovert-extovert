@@ -1,89 +1,112 @@
-# 🧠 Personality Classification Using Machine Learning (Introvert vs Extrovert)
+## 🧠 Personality Prediction using Machine Learning (XGBoost)
 
-### Based on CRISP-DM Methodology
+### 📘 Project Overview
 
----
-
-## 📌 1. Business Understanding
-
-The goal of this project is to **predict a person's personality type**—either **Introvert** or **Extrovert**—based on behavioral indicators. This can be useful for applications in education, recruitment, mental health, or social networking, where understanding someone's personality helps in personalization or support.
+This project aims to classify individuals as **Introvert** or **Extrovert** based on their behavioral survey data using an XGBoost classification model. The process follows the **CRISP-DM** framework.
 
 ---
 
-## 📊 2. Data Understanding
+## 🔁 CRISP-DM Framework
 
-### Dataset:
+### 1. **Business Understanding**
 
-* Source: `personality_dataset.csv` (included in the notebook directory)
-* Shape: `2,900 rows × 8 columns`
-* Target Variable: `Personality` (Introvert/Extrovert)
-
-### Features:
-
-| Feature                     | Type        | Description            |
-| --------------------------- | ----------- | ---------------------- |
-| Time\_spent\_Alone          | Numeric     | Hours per week alone   |
-| Stage\_fear                 | Categorical | Yes/No                 |
-| Social\_event\_attendance   | Numeric     | Frequency score        |
-| Going\_outside              | Numeric     | Days per week          |
-| Drained\_after\_socializing | Categorical | Yes/No                 |
-| Friends\_circle\_size       | Numeric     | Count of close friends |
-| Post\_frequency             | Numeric     | Social media activity  |
-| Personality                 | Categorical | Target label           |
-
-### Observations:
-
-* Some features contain missing values.
-* Mix of categorical and numeric data.
-* Personality labels are well balanced.
+* **Objective**: Predict an individual's personality type (Introvert or Extrovert) from behavioral features.
+* **Use Case**: Applicable in HR personality screening, self-assessment tools, or social media behavior analysis.
 
 ---
 
-## 🧹 3. Data Preparation
+### 2. **Data Understanding**
 
-* **Missing Value Handling**: `SimpleImputer` used for both numeric and categorical columns.
-* **Label Encoding**: Applied to convert categorical values like `Yes/No` to binary.
-* **Feature Scaling**: StandardScaler applied to normalize numeric features.
-* **Balancing Classes**: SMOTE (Synthetic Minority Oversampling Technique) used to handle class imbalance.
+* **Source**: `personality_dataset.csv`
 
----
+* **Records**: 2,900 entries
 
-## 🤖 4. Modeling
+* **Features**:
 
-Multiple classification models were evaluated:
+  * `Time_spent_Alone` (numeric)
+  * `Stage_fear` (categorical)
+  * `Social_event_attendance` (numeric)
+  * `Going_outside` (numeric)
+  * `Drained_after_socializing` (categorical)
+  * `Friends_circle_size` (numeric)
+  * `Post_frequency` (numeric)
+  * `Personality` (target)
 
-* Logistic Regression
-* Decision Tree
-* Random Forest
-* K-Nearest Neighbors
-* Support Vector Machine (SVC)
-* Gradient Boosting
-* XGBoost
-* **Stacking Classifier** (final model)
+* **Initial Insights**:
 
-**Hyperparameter Tuning**: Used `RandomizedSearchCV` and `StratifiedKFold` cross-validation.
+  * Balanced class distribution (Introvert \~48%, Extrovert \~52%)
+  * Some features have missing values
 
 ---
 
-## 📈 5. Evaluation
+### 3. **Data Preparation**
 
-### Metrics Used:
+* **Missing Values**:
 
-* Accuracy, F1 Score
-* Confusion Matrix
-* ROC-AUC Score
+  * Numerical columns imputed using `SimpleImputer(strategy='mean')`
+* **Encoding**:
 
-### Explainability:
+  * Categorical columns (`Stage_fear`, `Drained_after_socializing`) encoded using `LabelEncoder`
+  * Target `Personality` also encoded for classification
+* **Scaling**:
 
-* SHAP (SHapley Additive exPlanations) used to visualize and interpret model decisions.
+  * Applied `StandardScaler` to numeric features for optimal model performance
+* **EDA**:
+
+  * Correlation heatmap
+  * Countplots
+  * Pairplot by class
+
+---
+
+### 4. **Modeling**
+
+* **Algorithm**: `XGBClassifier` (XGBoost)
+* **Train-Test Split**: 80% training, 20% testing
+* **Metrics**:
+
+  * Accuracy: \~92%
+  * F1-score: 0.91–0.92 for both classes
+  * Confusion matrix
+* **Visualization**:
+
+  * Confusion Matrix (Seaborn heatmap)
+  * Feature Importance (XGBoost’s plot\_importance)
 
 ---
 
-## 🚀 6. Deployment / Next Steps
+### 5. **Evaluation**
 
-* Export model using `joblib` (optional)
-* Deploy via a web app (e.g., Streamlit or Flask)
-* Integrate a user input form to predict personality type in real time
-* Explore more features such as hobbies, media consumption, or survey data
+* **Model performs well** on both classes with high precision and recall
+* Most influential features: `Friends_circle_size`, `Social_event_attendance`, `Time_spent_Alone`
+* Robust performance across metrics and data balance
 
 ---
+
+### 6. **Deployment**
+
+* Included code for making predictions from new questionnaire input
+* Model accepts input in the form of a Python dictionary and returns predicted personality type
+* Can be extended for Streamlit or web-based integration
+
+---
+
+## ▶️ How to Use
+
+```python
+# Example Input
+sample_input = {
+    'Time_spent_Alone': 5.0,
+    'Stage_fear': 'Yes',
+    'Social_event_attendance': 3.0,
+    'Going_outside': 4.0,
+    'Drained_after_socializing': 'Yes',
+    'Friends_circle_size': 2.0,
+    'Post_frequency': 1.0
+}
+```
+
+```bash
+# Run notebook: bhv_updated.ipynb
+# Output: 🔮 ผลการทำนาย: บุคลิกภาพของคุณคือ --> Introvert / Extrovert
+```
