@@ -22,16 +22,20 @@ https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-
 
 * **Records**: 2,900 entries
 
-* **Features**:
 
-  * `Time_spent_Alone` (numeric)
-  * `Stage_fear` (categorical)
-  * `Social_event_attendance` (numeric)
-  * `Going_outside` (numeric)
-  * `Drained_after_socializing` (categorical)
-  * `Friends_circle_size` (numeric)
-  * `Post_frequency` (numeric)
-  * `Personality` (target)
+#### 🧾 Feature Descriptions:
+| Feature | Description |
+|--------|-------------|
+| `Time_spent_Alone` | Hours spent alone daily (0–11). Introverts tend to have higher values. |
+| `Stage_fear` | Presence of stage fright (Yes/No). Introverts are more likely to say "Yes". |
+| `Social_event_attendance` | Frequency of attending events (0–10). Extroverts are typically more active. |
+| `Going_outside` | Days per week one goes outside (0–7). Extroverts often go out more. |
+| `Drained_after_socializing` | Feeling tired after socializing (Yes/No). Common among introverts. |
+| `Friends_circle_size` | Number of close friends (0–15). Extroverts tend to have larger circles. |
+| `Post_frequency` | Frequency of posting on social media (0–10). Extroverts are often more expressive. |
+| `Personality` | Target label: Introvert or Extrovert. |
+
+---
 
 * **Initial Insights**:
 
