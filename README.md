@@ -18,6 +18,7 @@ This project aims to classify individuals as **Introvert** or **Extrovert** base
 ### 2. **Data Understanding**
 
 * **Source**: `personality_dataset.csv`
+https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data
 
 * **Records**: 2,900 entries
 
